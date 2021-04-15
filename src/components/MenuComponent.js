@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 // import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import DishDetail from './dishDetail';
 
 class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // dishes: [               //javascript objects and object name=dishes
+            // dishes: [               //javascript objects where object name=dishes
             //     {
             //         id: 0,
             //         name:'Uthappizza',
@@ -44,41 +45,64 @@ class Menu extends Component {
             //         description:'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'                        
             //     }
             // ]
-            // ALTERNATIVE
+
+            // ALTERNATIVE :
 
             selectedDish: null
-        }
+        };
     }
 
     onDishSelect(dish) {
         this.setState({ selectedDish: dish });
     }
-    renderDish(dish) {
-        if (dish != null) {
-            return(
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle> {dish.name} </CardTitle>
-                        <CardText> {dish.description} </CardText>
-                    </CardBody>
-                </Card>
-            );
-        }
-        else {
-            return(
-                <div></div>
-            );
-        }
-    }
+    // renderDish(dish) {
+    //     if (dish != null) {
+    //         return(
+    //             <div className="row">
+    //                 <div className="col-12 col-md-5 m-1">
+    //                     <Card>
+    //                         <CardImg width="100%" src={dish.image} alt={dish.name} />
+    //                         <CardBody>
+    //                             <CardTitle className="font-weight-bold"> {dish.name} </CardTitle>
+    //                             <CardText> {dish.description} </CardText>
+    //                         </CardBody>
+    //                     </Card>
+    //                 </div>
+    //                 <div className="col-12 col-md-5">
+    //                                 <div>
+    //                                     <h5 className="font-weight-bold">Comments</h5>
+    //                                     {dish.comments.map((sub) =>
+    //                                         <div>
+    //                                             <div>{sub.comment}</div>
+    //                                             <br/>
+    //                                             <div>--{sub.author} , <span>{sub.date}</span></div>
+    //                                             <br/>
+    //                                         </div>
+    //                                     )}
+    //                                 </div>
+    //                 </div>
+    //             </div>
+                
+    //         );
+    //     }
+    //     else {
+    //         return(
+    //             <div></div>
+    //         );
+    //     }
+    // }
 
     render() {
 
-        // const menu = this.state.dishes.map((dish) => {                 //javascript .map is used to iterate all the items/every dish in the dishes array//
+        // const menu = this.state.dishes.map((dish) => {                   //javascript .map is used to iterate all the items/every dish in the dishes array//
+                            
         // ALTERNATIVE using PROPS instead of STATE :
-        const menu = this.props.dishes.map((dish) => {
-        return (                                                           // the arrow function to define what is going to be returned by the map operator//
+
+        const menu = this.props.dishes.map((dish) => {                      // the arrow function is used to define what is going to be returned by the map operator//
+        return (  
+                                                                     
 // whenever we declare list of items in our component for rendering, every list item is defined with a key property which helps react to recognize each of these items uniquely and render them for any changes in the website:
+
                 // <div key={dish.id} className="col-12 mt-5">                    
                 //     <Media tag="li">
                 //         <Media left middle>
@@ -91,6 +115,7 @@ class Menu extends Component {
                 //     </Media>
 
                 //   ALTERNATIVE METHOD USING CARD INSTEAD OF MEDIA:
+                
                 <div key={dish.id} className="col-12 col-md-5 m-1">
                     <Card onClick={() => this.onDishSelect(dish)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
@@ -99,17 +124,20 @@ class Menu extends Component {
                             </CardImgOverlay>
                     </Card>
                 </div>
-            )                                    
+        );                                  
         });             
+
+        // console.log('Menu component render is invoked');
 
         return(
             <div className="container">
                 <div className="row">
                         {menu}
                 </div>
-                <div classsName="row">
-                    {this.renderDish(this.state.selectedDish)}
-                </div>
+                {/* <div classsName="row"> */}
+                    {/* {this.renderDish(this.state.selectedDish)} */}
+                    <DishDetail dish={this.state.selectedDish} />
+                {/* </div> */}
             </div>
         );
     }
