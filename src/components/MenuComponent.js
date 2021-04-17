@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 // import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-import DishDetail from './dishDetail';
+// import DishDetail from './dishDetail';
 
 class Menu extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        // this.state = {
             // dishes: [               //javascript objects where object name=dishes
             //     {
             //         id: 0,
@@ -48,13 +48,14 @@ class Menu extends Component {
 
             // ALTERNATIVE :
 
-            selectedDish: null
-        };
+            // selectedDish: null
+        // };
     }
 
-    onDishSelect(dish) {
-        this.setState({ selectedDish: dish });
-    }
+    // onDishSelect(dish) {
+    //     this.setState({ selectedDish: dish });
+    // }
+
     // renderDish(dish) {
     //     if (dish != null) {
     //         return(
@@ -117,7 +118,8 @@ class Menu extends Component {
                 //   ALTERNATIVE METHOD USING CARD INSTEAD OF MEDIA:
                 
                 <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={() => this.onDishSelect(dish)}>
+                    {/* <Card onClick={() => this.onDishSelect(dish)}> */}
+                    <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
                             <CardImgOverlay>
                                 <CardTitle> {dish.name} </CardTitle>
@@ -136,7 +138,7 @@ class Menu extends Component {
                 </div>
                 {/* <div classsName="row"> */}
                     {/* {this.renderDish(this.state.selectedDish)} */}
-                    <DishDetail dish={this.state.selectedDish} />
+                    {/* <DishDetail dish={this.state.selectedDish} /> */}
                 {/* </div> */}
             </div>
         );
