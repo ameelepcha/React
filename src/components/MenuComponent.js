@@ -1,11 +1,22 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+import React from 'react';
 // import { Media } from 'reactstrap';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 // import DishDetail from './dishDetail';
 
-class Menu extends Component {
-    constructor(props) {
-        super(props);
+function RenderMenuItem({ dish, onClick }){
+    return(
+        <Card onClick={() => onClick(dish.id)}>
+            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImgOverlay>
+                <CardTitle> {dish.name} </CardTitle>
+            </CardImgOverlay>
+        </Card>
+    );
+}
+// class Menu extends Component {
+    // constructor(props) {
+        // super(props);
         // this.state = {
             // dishes: [               //javascript objects where object name=dishes
             //     {
@@ -50,7 +61,7 @@ class Menu extends Component {
 
             // selectedDish: null
         // };
-    }
+    // }
 
     // onDishSelect(dish) {
     //     this.setState({ selectedDish: dish });
@@ -93,13 +104,20 @@ class Menu extends Component {
     //     }
     // }
 
-    render() {
+    // componentDidMount() {
+    //     console.log('Menu Component componentDidMount invoked');
+    // }
+
+    // render() {
 
         // const menu = this.state.dishes.map((dish) => {                   //javascript .map is used to iterate all the items/every dish in the dishes array//
                             
         // ALTERNATIVE using PROPS instead of STATE :
 
-        const menu = this.props.dishes.map((dish) => {                      // the arrow function is used to define what is going to be returned by the map operator//
+        const Menu = (props) => {
+
+        // const menu = this.props.dishes.map((dish) => {                      // the arrow function is used to define what is going to be returned by the map operator//
+        const menu = props.dishes.map((dish) => {
         return (  
                                                                      
 // whenever we declare list of items in our component for rendering, every list item is defined with a key property which helps react to recognize each of these items uniquely and render them for any changes in the website:
@@ -118,13 +136,14 @@ class Menu extends Component {
                 //   ALTERNATIVE METHOD USING CARD INSTEAD OF MEDIA:
                 
                 <div key={dish.id} className="col-12 col-md-5 m-1">
+                    <RenderMenuItem dish={dish} onClick={props.onClick} />
                     {/* <Card onClick={() => this.onDishSelect(dish)}> */}
-                    <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
+                    {/* <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
                             <CardImgOverlay>
                                 <CardTitle> {dish.name} </CardTitle>
                             </CardImgOverlay>
-                    </Card>
+                    </Card> */}
                 </div>
         );                                  
         });             
@@ -142,7 +161,8 @@ class Menu extends Component {
                 {/* </div> */}
             </div>
         );
-    }
-}
+        }
+//     }
+// }
 
 export default Menu;

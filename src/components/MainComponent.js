@@ -3,7 +3,6 @@ import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import DishDetail from './dishDetail';
 import { DISHES } from '../shared/dishes';
-// import './App.css';
 
 class Main extends Component{
 
