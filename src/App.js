@@ -5,6 +5,11 @@ import React, { Component } from 'react';
 import Main from './components/MainComponent';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+// this provider allows us to configure my react application so that my redux store is available to all the other components in my app
+import { Provider } from 'react-redux'; 
+import { ConfigureStore } from './redux/configureStore';
+
+const store = ConfigureStore();
 
 class App extends Component{
 
@@ -19,6 +24,7 @@ class App extends Component{
     render() {
       return (
         // <div className="App">
+        <Provider store={store}>
         <BrowserRouter>
           {/* <Navbar dark color="primary">
             <div className="container">
@@ -30,6 +36,7 @@ class App extends Component{
               <Main />
             </div>
           </BrowserRouter>
+          </Provider>
         // </div>
     );
   }

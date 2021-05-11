@@ -39,7 +39,7 @@ class Contact extends Component{
         });
     }
 
-    //when we click on the submit button, the handleSubmit should be called
+    //when we click on the submit button/send feedback button, the handleSubmit should be called
     hanldleSubmit(event) {             
         console.log("Current state is : " + JSON.stringify(this.state));
         alert("Current state is : " + JSON.stringify(this.state));
