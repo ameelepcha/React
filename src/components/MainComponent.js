@@ -13,8 +13,10 @@ import About from './AboutComponent';
 // import { LEADERS } from '../shared/leaders';
 // import { PROMOTIONS } from '../shared/promotions';
 import { connect } from 'react-redux';
+import { addComment, fetchDishes } from '../redux/ActtionCreators';
 
-const mapStateToProps = state => {          {/*this will map redux store state into props that will be available to my component */}
+{/*this will map redux store state into props that will be available to my component */}
+const mapStateToProps = state => {
       return {
         //this dishes will be available from my redux store state as props
         dishes: state.dishes,                
@@ -23,6 +25,11 @@ const mapStateToProps = state => {          {/*this will map redux store state i
         leaders: state.leaders
     }  
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes: () => {dispatch(fetchDishes())}
+});
 
 class Main extends Component{
 
@@ -42,6 +49,10 @@ class Main extends Component{
     //     this.setState({ selectedDish: dishId });
     // }
 
+    componentDidMount() {
+        this.props.fetchDishes();
+    }
+
     render() {
 
         // declaring a function component explicitly
@@ -51,7 +62,9 @@ class Main extends Component{
                 // promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
                 // leader={this.state.leaders.filter((leader) => leader.featured)[0]}
                 // />
-                <Home dish={this.props.dishes.filter((dish) => dish.featured)[0]} 
+                <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} 
+                dishesLoading={this.props.dishes.isLoading}
+                dishesErrMess={this.props.dishes.errMess}
                 promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
                 leader={this.props.leaders.filter((leader) => leader.featured)[0]}
                 />
@@ -60,8 +73,11 @@ class Main extends Component{
 
         const DishWithId = ({match}) => {
             return (
-                <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10)) [0]}
+                <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10)) [0]}
+                isLoading={this.props.dishes.isLoading}
+                errMess={this.props.dishes.errMess}
                 comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10)) }
+                addComment={this.props.addComment}
                 />
             );
         }
@@ -98,4 +114,4 @@ class Main extends Component{
         );
     }
 }
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -4,6 +4,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 // import DishDetail from './dishDetail';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 function RenderMenuItem({ dish, onClick }){
     return(
@@ -121,7 +122,7 @@ function RenderMenuItem({ dish, onClick }){
         const Menu = (props) => {
 
         // const menu = this.props.dishes.map((dish) => {                      // the arrow function is used to define what is going to be returned by the map operator//
-        const menu = props.dishes.map((dish) => {
+        const menu = props.dishes.dishes.map((dish) => {
         return (  
                                                                      
 // whenever we declare list of items in our component for rendering, every list item is defined with a key property which helps react to recognize each of these items uniquely and render them for any changes in the website:
@@ -155,27 +156,46 @@ function RenderMenuItem({ dish, onClick }){
 
         // console.log('Menu component render is invoked');
 
-        return(
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>Menu</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>Menu</h3>
-                        <hr />
+        if (props.dishes.isLoading) {
+             return(
+                    <div className="container">
+                        <div className="row">
+                            <Loading />
+                        </div>
                     </div>
+                );
+            }
+            else if (props.dishes.errMess) {
+                return(
+                    <div className="container">
+                        <div className="row">
+                            <h4>{props.dishes.errMess}</h4>
+                        </div>
+                    </div>
+                );
+            }
+        else
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>Menu</BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>Menu</h3>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row">
+                            {menu}
+                    </div>
+                    {/* <div classsName="row"> */}
+                        {/* {this.renderDish(this.state.selectedDish)} */}
+                        {/* <DishDetail dish={this.state.selectedDish} /> */}
+                    {/* </div> */}
                 </div>
-                <div className="row">
-                        {menu}
-                </div>
-                {/* <div classsName="row"> */}
-                    {/* {this.renderDish(this.state.selectedDish)} */}
-                    {/* <DishDetail dish={this.state.selectedDish} /> */}
-                {/* </div> */}
-            </div>
-        );
+            );
         }
 //     }
 // }
