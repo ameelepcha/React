@@ -14,6 +14,7 @@ import About from './AboutComponent';
 // import { PROMOTIONS } from '../shared/promotions';
 import { connect } from 'react-redux';
 import { addComment, fetchDishes } from '../redux/ActtionCreators';
+import { actions } from 'react-redux-form';
 
 {/*this will map redux store state into props that will be available to my component */}
 const mapStateToProps = state => {
@@ -28,7 +29,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => {dispatch(fetchDishes())}
+    fetchDishes: () => {dispatch(fetchDishes())},
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 });
 
 class Main extends Component{
@@ -104,7 +106,7 @@ class Main extends Component{
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />              {/* declaring a function component implicitly/inline */}
                     <Route path="/menu/:dishId" component={DishWithId} />
-                    <Route path="/contactus" component={Contact} />
+                    <Route path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} /> } />
                     <Route path="/aboutus" component={AboutUsPage} />
                     {/* <Route path="/aboutus" component={() => <About leaders={this.state.leaders} />} /> */}
                     <Redirect to="/home" />

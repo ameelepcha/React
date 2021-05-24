@@ -1,8 +1,9 @@
 // import React from 'react';
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, Row, FormFeedback } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, FormGroup, Label, Input, Col, Row, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+// import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -55,6 +56,7 @@ class Contact extends Component{
     hanldleSubmit(values) {             
         console.log("Current state is : " + JSON.stringify(values));
         alert("Current state is : " + JSON.stringify(values));
+        this.props.resetFeedbackForm();
     }
 
     // handleBlur = (field) => (evt) => {
@@ -139,7 +141,8 @@ class Contact extends Component{
                     </div>
                     <div className="col-12 col-md-9">
                         {/* <Form onSubmit={this.hanldleSubmit}> */}
-                        <LocalForm onSubmit={(values) => this.hanldleSubmit(values)}>
+                        {/* <LocalForm onSubmit={(values) => this.hanldleSubmit(values)}> */}
+                        <Form model="feedback" onSubmit={(values) => this.hanldleSubmit(values)}>
                             {/*FormGroup row allows us to use bootstrap grid inside the form to layout the various form elements */}
                             {/* <FormGroup row> */}
                             <Row className="form-group">
@@ -329,7 +332,8 @@ class Contact extends Component{
                                 </Col>
                             </Row>
                             {/* </FormGroup> */}
-                        </LocalForm>
+                        {/* </LocalForm> */}
+                        </Form>
                     </div>
                 </div>
             </div>
