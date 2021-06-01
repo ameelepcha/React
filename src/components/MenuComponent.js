@@ -5,13 +5,14 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 // import DishDetail from './dishDetail';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderMenuItem({ dish, onClick }){
     return(
         // <Card onClick={() => onClick(dish.id)}>
         <Card>
             <Link to={`/menu/${dish.id}`} >
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
             <CardImgOverlay>
                 <CardTitle> {dish.name} </CardTitle>
             </CardImgOverlay>
